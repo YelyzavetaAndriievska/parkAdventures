@@ -1,0 +1,20 @@
+<h1>Список модераторів</h1>
+<table>
+    <tr>
+        <th>Ім'я</th>
+        <th>Дія</th>
+    </tr>
+    {% for moderator in moderators %}
+    <tr>
+        <td>{{ moderator.username }}</td>
+        <td>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="moderator_id" value="{{ moderator.id }}">
+                <button type="submit" name="action" value="enable">Дозволити</button>
+                <button type="submit" name="action" value="disable">Заборонити</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

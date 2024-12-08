@@ -1,0 +1,257 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Game</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css'%}" type="text/css">
+</head>
+
+<body onload="handleBackground()">
+    <div class="container">
+    <form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+        <button type="submit">Вийти</button>
+    </form>
+
+    <div class="materials">
+        <div class="btn_container btn_wood">
+            <div>{{ player.wood }}</div>
+        </div>
+        <div class="btn_container btn_iron">
+            <div>{{ player.iron }}</div>
+        </div>
+        <div class="btn_container btn_gold">
+            <div>{{ player.gold }}</div>
+        </div>
+    </div>
+
+    <div class="right_group">
+        <div class="btn_container btn_health">
+            <div>{{ player.life }}</div>
+         </div>
+         <div class="btn_container btn_dragon_health">
+            <div>{{ player.dragon_life }}</div>
+         </div>
+
+    </div>
+
+
+    <form id="buttons_form" method="post" onload="handleBackground()">
+        {% csrf_token %}
+        <div class="input_wrap">
+             <input type="checkbox" name="battle_mode" id="battle_mode" {% if battle_mode %}checked{% endif %} onchange="updateModeText()">
+<!--                <label for="battle_mode">Battle/Escape Mode</label>-->
+            <div class="mode-text" data-initial-text="Escape Mode Battle">Battle</div>
+        </div>
+
+<script>
+  function updateModeText() {
+    const checkbox = document.getElementById('battle_mode');
+    const modeTextElements = document.querySelectorAll('.mode-text');
+
+    modeTextElements.forEach(element => {
+      const initialText = element.dataset.initialText;
+      element.textContent = checkbox.checked ? "Escape Mode" : "Battle";
+    });
+
+    document.body.classList.toggle('fight_view', checkbox.checked);
+
+  }
+</script>
+
+        <br>
+          <div class="btn_container btn_build_castle build build1">
+              <button name="action" value="castle">Build Castle</button>
+          </div>
+        <div class="btn_container btn_build_forge build build2">
+            <button  name="action" value="forge">Build Forge</button>
+        </div>
+        <div class="btn_container btn_build_magic build build3">
+            <button name="action" value="magic">Build Magic</button>
+        </div>
+
+        <div class="right_btns">
+            <div class="btn_container btn_shield">
+                <button name="action" value="shield">Shield</button> <p>{{ player.shield }}</p>
+            </div>
+            <div class="btn_container btn_sword">
+                <button name="action" value="sword">Sword</button> <p>{{ player.sword }}</p>
+            </div>
+            <div class="btn_container btn_magic_shield">
+                <button name="action" value="magic_shield">Magic Shield</button> <p>{{ player.magic_shield }}</p>
+            </div>
+            <div class="btn_container btn_magic_sword">
+                <button name="action" value="magic_sword">Magic Sword</button> <p>{{ player.magic_sword }}</p>
+            </div>
+            <div class="btn_container btn_elixir">
+                <button name="action" value="elixir">Elixir</button> <p>{{ player.elixir }}</p>
+            </div>
+            <div class="btn_container btn_flash">
+                <button name="action" value="flash">Flash</button> <p>{{ player.flash }}</p>
+            </div>
+        </div>
+        <div class="castle_value">{{ player.castle }}</div>
+        <div class="forge_value">{{ player.forge }}</div>
+        <div class="magic_value">{{ player.magic }}</div>
+        <div class="dragon_value">{{ player.dragon_life }}</div>
+
+    </form>
+
+</div>
+    <div class="bottom_group">
+     <div id="messages-container">
+        <div id="messages">
+            <p>{{ message }}</p>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <div>
+                <div id="qr-result">You found: </div>
+           <form id="qr_form" method="POST">
+               {% csrf_token %}
+               <input type="hidden" name="resource_input" id="resource_input" value="">
+               <button type="submit" id="send-qrcode">Get your reward!</button>
+           </form>
+       </div>
+        <div>
+            <video id="video" width="300" height="200" autoplay></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+        </div>
+    </div>
+</div>
+</body>
+
+    <script>
+  function handleBackground() {
+  const build_castle = document.querySelector('.btn_build_castle');
+  const build_forge = document.querySelector('.btn_build_forge');
+  const build_magic = document.querySelector('.btn_build_magic');
+
+  const isCastleMode = document.querySelector('.castle_value').textContent.trim();
+  const isForgeMode = document.querySelector('.forge_value').textContent.trim();
+  const isMagicMode = document.querySelector('.magic_value').textContent.trim();
+  const isWonMode = document.querySelector('.dragon_value').textContent.trim();
+
+
+  const forgeValue = parseInt(isForgeMode);
+  const castleValue = parseInt(isCastleMode);
+  const magicValue = parseInt(isMagicMode);
+  const wonValue = parseInt(isWonMode);
+
+
+
+  const body = document.body;
+   const checkbox = document.getElementById('battle_mode');
+   body.classList.toggle('fight_view', checkbox.checked);
+
+
+      if (castleValue) {
+        body.classList.add('castle_view');
+        build_castle.classList.add('hidden');
+      } else {
+        body.classList.remove('castle_view');
+      }
+
+      if (forgeValue) {
+      body.classList.remove('castle_view')
+        body.classList.add('forge_view');
+        build_forge.classList.add('hidden');
+          console.log('isForgeMode true')
+      }
+
+      if (magicValue) {
+      body.classList.add('magic_view');
+      body.classList.remove('castle_view')
+      body.classList.remove('forge_view')
+
+      build_magic.classList.add('hidden');
+          console.log('magicValue true')
+      }
+
+          console.log('wonValue', wonValue)
+
+      if (wonValue == 0) {
+        body.classList.add('won_view');
+        body.classList.remove('castle_view')
+        body.classList.remove('forge_view')
+        body.classList.remove('fight_view')
+        body.classList.remove('magic_view')
+          console.log('wonValue', wonValue)
+      }
+
+  }
+</script>
+
+
+<!--<ul>-->
+<!--    <li>Castle: {{ player.castle }}</li>-->
+<!--    <li>Forge: {{ player.forge }}</li>-->
+<!--    <li>Magic: {{ player.magic }}</li>-->
+<!--    <li>Wood: {{ player.wood }}</li>-->
+<!--    <li>Iron: {{ player.iron }}</li>-->
+<!--    <li>Gold: {{ player.gold }}</li>-->
+<!--    <li>Life: {{ player.life }}</li>-->
+<!--    <li>Shield: {{ player.shield }}</li>-->
+<!--    <li>Magic_shield: {{ player.magic_shield }}</li>-->
+<!--    <li>Sword: {{ player.sword }}</li>-->
+<!--    <li>Magic_sword: {{ player.magic_sword }}</li>-->
+<!--    <li>Elixir: {{ player.elixir }}</li>-->
+<!--    <li>Flash: {{ player.flash }}</li>-->
+<!--</ul>-->
+
+
+
+
+
+
+
+<script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
+
+<script>
+    let video = document.getElementById('video');
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let qrResult = document.getElementById('qr-result');
+    let resourceInput = document.getElementById('resource_input');
+    let sendButton = document.getElementById('send-qrcode');
+
+    function startCamera() {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+            .then(function(stream) {
+                video.srcObject = stream;
+                video.setAttribute("playsinline", true); // Required for iPhone
+                video.play();
+                requestAnimationFrame(scanQRCode);
+            });
+    }
+
+    function scanQRCode() {
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+            canvas.height = video.videoHeight;
+            canvas.width = video.videoWidth;
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            let code = jsQR(imageData.data, canvas.width, canvas.height, {
+                inversionAttempts: "dontInvert"
+            });
+
+            if (code) {
+                qrResult.textContent = 'You found: ' + code.data;
+                resourceInput.value = code.data;
+            }
+        }
+        requestAnimationFrame(scanQRCode);
+    }
+
+    startCamera();
+</script>
+
+<!--<form method="POST">-->
+<!--    {% csrf_token %}-->
+<!--    <input type="hidden" name="resource_input" id="resource_input" value="">-->
+<!--    <button type="submit">Submit</button>-->
+<!--</form>-->

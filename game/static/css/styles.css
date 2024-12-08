@@ -1,0 +1,298 @@
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    position: relative;
+    color: white;
+    text-shadow: 4px 10px 15px #050505;
+}
+
+.hidden {
+    display: none!important;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.materials {
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+}
+
+.right_group, .mode-text {
+    font-size: 50px;
+}
+
+#buttons_form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-end;
+    justify-content: space-around;
+    margin-top: 80px;
+}
+
+#buttons_form button,
+#qr_form button {
+    font-size: 50px;
+    margin-top: 30px;
+}
+
+#qr_form button {
+    padding: 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: #4ca528;
+    color: white;
+    text-shadow: 4px 10px 15px #050505;
+}
+
+#qr_result {
+    font-size: 40px;
+}
+
+#buttons_form button{
+    opacity: 0;
+}
+
+#buttons_form .build {
+    opacity: 1;
+}
+
+.btn_container {
+align-items: center;
+    width: 150px;
+    height: 150px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.btn_shield {
+    background-image: url(/static/images/shield.png);
+}
+
+.btn_sword {
+    background-image: url(/static/images/sword.png);
+}
+
+.btn_magic_shield {
+    background-image: url(/static/images/magic_shield.png);
+}
+
+.btn_magic_sword {
+    background-image: url(/static/images/magic_sword.png);
+}
+
+.btn_elixir {
+    background-image: url(/static/images/elixir.png);
+}
+
+.btn_flash {
+    background-image: url(/static/images/flash.png);
+}
+
+.btn_build_castle {
+    background-image: url(/static/images/build_castle.png);
+}
+
+.btn_build_forge {
+    background-image: url(/static/images/build_forge.png);
+}
+
+.btn_build_magic {
+    background-image: url(/static/images/build_magic.png);
+}
+
+.btn_wood {
+    background-image: url(/static/images/wood.png);
+}
+
+.btn_iron {
+    background-image: url(/static/images/iron.png);
+}
+
+.btn_gold {
+    background-image: url(/static/images/gold.png);
+}
+
+.btn_dragon_health {
+    background-image: url(/static/images/dragon_health.png);
+}
+
+.btn_health {
+    background-image: url(/static/images/health.png);
+    width: 130px;
+    height: 130px;
+}
+
+.btn_container.btn_health {
+    position: absolute;
+    top: 30px;
+}
+
+.btn_container.btn_dragon_health {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+
+input[type="checkbox"] {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+}
+
+.input_wrap {
+    display: flex;
+    align-items: center;
+}
+
+.wrap {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    align-items: center;
+}
+
+#qr-result {
+    font-size: 40px;
+}
+
+.build {
+    position: absolute;
+    bottom: 400px;
+    width: 20%;
+    padding: 20px;
+    font-size: 40px;
+}
+
+.build1 {
+    left: 5%;
+}
+
+.build2 {
+    left: calc(50% - 93px);
+}
+
+.build3 {
+    right: 5%;
+}
+
+.btn_container {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-around;
+}
+
+.btn_container p {
+    font-size: 40px;
+    margin-left: 10px;
+}
+
+body {
+    font-family: sans-serif;
+    background: url(/static/images/background.png);
+    /* background: #90b9bb; */
+    background-attachment: fixed;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.fight_view {
+    background: url(/static/images/fight_bcgrd.png)!important;
+    background-size: cover!important;
+    background-attachment: fixed!important;
+    background-position: center!important;
+}
+
+.castle_view {
+    background: url(/static/images/castle.png);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.forge_view {
+    background: url(/static/images/forge_view.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: left;
+}
+
+.magic_view {
+    background: url(/static/images/magic_view.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: left;
+}
+
+.won_view {
+    background: url(/static/images/won_view.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.bottom_group {
+    position: absolute;
+    bottom: 20px;
+    width: 90%;
+    left: 5%;
+}
+
+#messages-container {
+    position: relative;
+    margin: 0 auto;
+    height: 100px;
+    overflow-y: auto;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    white-space: pre-wrap;
+    background-color: #e4e6d3;
+   /* opacity: .4; */
+}
+
+#messages {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    color: #417c21;
+    z-index: 9999;
+    font-size: 40px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    text-shadow: 4px 10px 15px #f1eaea;
+}
+
+#messages p {
+    margin: 0;
+    padding: 0;
+}
+
+.castle_value,
+.forge_value,
+.magic_value,
+.dragon_value {
+    display: none;
+}
+
+.right_btns {
+    margin-right: 50px;
+}
+
+.btn_elixir button {
+    margin-right: 30px;
+}
+
+.btn_flash button {
+    margin-right: 15px;
+}

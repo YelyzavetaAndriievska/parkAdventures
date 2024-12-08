@@ -1,0 +1,17 @@
+<h1>Game</h1>
+<p>Dragon Life: {{ player.dragon_life }}</p>
+<ul>
+    <li>Castle: {{ player.castle }}</li>
+    <li>Forge: {{ player.forge }}</li>
+    <li>Magic: {{ player.magic }}</li>
+    <li>Wood: {{ player.wood }}</li>
+    <li>Iron: {{ player.iron }}</li>
+    <li>Gold: {{ player.gold }}</li>
+</ul>
+<form method="post">
+    {% csrf_token %}
+    <button name="action" value="castle">Build Castle</button>
+    <button name="action" value="forge">Build Forge</button>
+    <button name="action" value="magic">Build Magic</button>
+    <button name="action" value="kill_dragon">Kill Dragon</button>
+</form>
